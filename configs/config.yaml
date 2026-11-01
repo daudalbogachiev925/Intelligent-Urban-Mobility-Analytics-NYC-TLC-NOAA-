@@ -1,0 +1,38 @@
+data:
+  tlc_year: 2024
+  tlc_months: [1, 2, 3]
+  tlc_base_url: "https://d37ci6vzurychx.cloudfront.net/trip-data"
+  zones_url: "https://data.cityofnewyork.us/api/geospatial/8meu-9t5y?method=export&format=GeoJSON"
+  raw_dir: "./data/raw"
+  processed_dir: "./data/processed"
+
+noaa:
+  station_id: "GHCND:USW00094728"
+  dataset: "GHCND"
+  start_date: "2024-01-01"
+  end_date: "2024-03-31"
+  datatypes: ["TMAX", "TMIN", "PRCP", "SNOW", "AWND"]
+
+features:
+  lags_hours: [1, 2, 3, 6, 12, 24, 48, 168]
+  rolling_hours: [3, 6, 12, 24, 168]
+  fourier_orders_daily: [1, 2, 3]
+  fourier_orders_weekly: [1, 2]
+
+cv:
+  n_folds: 7
+  horizon_hours: 24
+
+model:
+  lightgbm:
+    n_estimators: 600
+    learning_rate: 0.05
+    num_leaves: 63
+    min_child_samples: 30
+    subsample: 0.9
+    colsample_bytree: 0.8
+    reg_alpha: 0.1
+    reg_lambda: 0.1
+
+api:
+  default_horizon: 24
