@@ -28,3 +28,64 @@ make features
 make train
 make serve
 curl "http://localhost:8000/demand?zone=161&horizon=24"
+Метрики
+WAPE, sMAPE, RMSE по зонам
+
+Временная кросс-валидация (rolling origin, 7 дней)
+
+Сравнение с baseline (историческое среднее по зоне/часу/дню недели)
+
+
+---
+
+## `pyproject.toml`
+
+```toml
+[project]
+name = "urban-mobility-analytics"
+version = "0.1.0"
+description = "NYC TLC + NOAA urban mobility demand forecasting"
+requires-python = ">=3.11"
+dependencies = [
+    "polars>=0.20.0",
+    "duckdb>=0.10.0",
+    "numpy>=1.26",
+    "pandas>=2.2",
+    "scikit-learn>=1.4",
+    "lightgbm>=4.3",
+    "geopandas>=0.14",
+    "matplotlib>=3.8",
+    "seaborn>=0.13",
+    "fastapi>=0.110",
+    "uvicorn[standard]>=0.29",
+    "pydantic>=2.6",
+    "pydantic-settings>=2.2",
+    "pyyaml>=6.0",
+    "python-dotenv>=1.0",
+    "httpx>=0.27",
+    "requests>=2.31",
+    "joblib>=1.3",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0",
+    "pytest-cov>=5.0",
+    "ruff>=0.3",
+    "mypy>=1.9",
+]
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+include = ["src*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
