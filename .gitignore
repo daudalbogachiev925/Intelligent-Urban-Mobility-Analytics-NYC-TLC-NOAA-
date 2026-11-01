@@ -1,0 +1,13 @@
+__pycache__/
+*.pyc
+.venv/
+.env
+data/raw/**/*.parquet
+data/raw/**/*.csv
+data/raw/**/*.geojson
+data/processed/**
+artifacts/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+*.log
